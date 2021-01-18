@@ -1,4 +1,5 @@
 import scala.reflect.ClassManifestFactory.Object
+import scala.util.control.Breaks
 
 class Test(idd:Int) {//构造函数加()
   self=>//相当于java中的this
@@ -92,16 +93,23 @@ class MyRichInt{
 
 object Test{
   def main(args: Array[String]): Unit = {
-    implicit def xxx(i:MInt)=new MyRichInt
-    var m=new MInt
-    m.xxx
-    for(i <- 1 to 10){
-      if (i%2==0){
-        for (j <- 1 to 3){
-          println(i+"  "+j+"  ")
-        }
+//    implicit def xxx(i:MInt)=new MyRichInt
+//    var m=new MInt
+//    m.xxx
+//    for(i <- 1 to 10){
+//      if (i%2==0){
+//        for (j <- 1 to 3){
+//          println(i+"  "+j+"  ")
+//        }
+//      }
+//    }
+
+    Breaks.breakable(
+      for (i<- 1 to 10){
+        if (i==3) Breaks.break()
+        println(i)
       }
-    }
+    )
    /* var a=1
     var d=a match {//类似于java中的switch*/
 
